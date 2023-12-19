@@ -18,8 +18,7 @@ class Item(Resource):
 
     @jwt_required()
     def get(self, name):
-        item = ItemModel.find_by_name(name)
-        if item:
+        if item := ItemModel.find_by_name(name):
             return item.json()
         return {'message': 'Item not found'}, 404
 
@@ -38,8 +37,7 @@ class Item(Resource):
         return item.json(), 201
 
     def delete(self, name):
-        item = ItemModel.find_by_name(name)
-        if item:
+        if item := ItemModel.find_by_name(name):
             item.delete_from_db()
 
         return {'message': 'item deleted'}
